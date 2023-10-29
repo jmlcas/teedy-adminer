@@ -12,11 +12,11 @@ services:
       - OCR_LANGS=spa
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=p4ssw0rd
-      - DATABASE_POOL_SIZE:10
+      - DATABASE_POOL_SIZE=10
     volumes:
       - ./teedy/data:/data
     depends_on:
-      - teedy-db
+      - teedy_db
     networks:
       - teedy
 
@@ -24,13 +24,13 @@ services:
     image: adminer
     restart: unless-stopped
     depends_on:
-      - teedy-db 
+      - teedy_db 
     ports:
-      - 8201:8080
+      - "8201:8080"
     networks:
       - teedy
 
-  teedy-db:
+  teedy_db:
     image: postgres:13.1-alpine
     restart: unless-stopped
     expose:
@@ -40,7 +40,7 @@ services:
       - POSTGRES_PASSWORD=p4ssw0rd
       - POSTGRES_DB=teedy
     volumes:
-      - ./docker/teedy/db:/var/lib/postgresql/data
+      - ./teedy/db:/var/lib/postgresql/data
     networks:
       - teedy
 
