@@ -7,4 +7,4 @@ Usuario: admin
 
 Password: admin
 
-Teedy ver en "localhost:8201"
+Adminer ver en "localhost:8201"
