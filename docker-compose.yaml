@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+
+  teedy:
+    image: sismics/docs:v1.11
+    restart: unless-stopped
+    ports:
+      - "8200:8080"
+    environment:
+      - JAVA_OPTIONS=-Xmx1024m
+      - OCR_LANGS=spa
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=p4ssw0rd
+      - DATABASE_POOL_SIZE:10
+    volumes:
+      - ./teedy/data:/data
+    depends_on:
+      - teedy-db
+    networks:
+      - teedy
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    depends_on:
+      - teedy-db 
+    ports:
+      - 8201:8080
+    networks:
+      - teedy
+
+  teedy-db:
+    image: postgres:13.1-alpine
+    restart: unless-stopped
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=p4ssw0rd
+      - POSTGRES_DB=teedy
+    volumes:
+      - ./docker/teedy/db:/var/lib/postgresql/data
+    networks:
+      - teedy
+
+networks:
+  teedy:
+
