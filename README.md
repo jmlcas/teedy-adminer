@@ -1,5 +1,5 @@
 # teedy-adminer
-Teedy con Postgres y adminer
+Teedy con Postgres y Adminer
 
 Ver en "localhost:8200"
 
